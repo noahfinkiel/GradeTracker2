@@ -53,7 +53,7 @@ public class NewCourseActivity extends Activity implements View.OnClickListener 
     }
 
 
-    //Effects: create GradingCategories, courses and adds them to the GradeCalcManager
+    //Effects: gets EditText values. create GradingCategories, courses and adds them to the GradeCalcManager
     @Override
     public void onClick(View view) {
 

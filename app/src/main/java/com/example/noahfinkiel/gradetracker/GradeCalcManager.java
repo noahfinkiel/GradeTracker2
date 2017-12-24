@@ -13,19 +13,25 @@ public class GradeCalcManager {
 
     // Effects: Constructs a GradeCalcManager
     private GradeCalcManager() {
+
         this.courses = new LinkedList<>();
     }
 
     //Effects: returns the instance of GradeCalcManager
     public static GradeCalcManager getInstance() {
+
         return instance;
     }
 
+    //Modifies: this
+    //Effects: adds course to courses
     public void addCourse(Course course) {
+
         this.courses.add(course);
     }
 
     public List<Course> getCourses() {
+
         return courses;
     }
 

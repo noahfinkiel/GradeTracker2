@@ -17,6 +17,7 @@ public class GradingCategory extends Observable {
     private double currentTotalPercent;
 
 
+    //Effects: constructs a new GradingCategory with given course and percent weight
     public GradingCategory(Course course, int weight) {
         addObserver(course);
         this.weight = weight;
@@ -49,7 +50,8 @@ public class GradingCategory extends Observable {
     }
 
 
-    // Effects: adds grade to current total
+    //Modifies: this
+    // Effects: adds grade to current percent total, notifies the course a grade has changed
     public void addGrade(Grade grade) {
         grades.add(grade);
         currentTotalPercent+= grade.getGrade();

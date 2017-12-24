@@ -36,7 +36,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 
 
-    //Effects: handles button click, sends to NewCourseActivity
+    //Effects: handles button click, creates new intent and sends to NewCourseActivity to wait for result
     @Override
     public void onClick(View arg) {
         if (arg.getId() == R.id.button1) {

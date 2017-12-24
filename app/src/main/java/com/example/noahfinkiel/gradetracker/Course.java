@@ -23,6 +23,7 @@ public class Course implements Observer {
 
     }
 
+    // Modifies: this
     //Effects: adds the given grading category
     public void addCategory(GradingCategory category) {
         categories.add(category);
@@ -31,9 +32,12 @@ public class Course implements Observer {
 
     // Effects: updates the course grade
     public void update(Observable observable, Object o) {
+
         calculatePercentGrade();
     }
 
+
+    // Modifies: this
     // Effects: calculates updated course grade
     public void calculatePercentGrade() {
         double totalMarks = 0;
