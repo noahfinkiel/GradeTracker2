@@ -17,8 +17,12 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.example.noahfinkiel.gradetracker.NewCourseActivity"
-            android:label="NewCourseActivity">
+        android:name="com.example.noahfinkiel.gradetracker.NewCourseActivity"
+        android:label="NewCourseActivity">
+        </activity>
+        <activity
+            android:name="com.example.noahfinkiel.gradetracker.UpdateActivity"
+            android:label="UpdateActivity">
         </activity>
 
     </application>

@@ -13,7 +13,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:id="@+id/courseName"
-            android:hint="EnterCourseName"/>
+            android:hint="Enter Course Name"/>
     </LinearLayout>
 
     <LinearLayout android:layout_width="fill_parent"

@@ -4,11 +4,13 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.view.ViewManager;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.example.noahfinkiel.mygradetracker.R;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener{
+public class MainActivity extends AppCompatActivity implements View.OnClickListener, AdapterView.OnItemClickListener{
 
     private ListView listView;
     private CourseAdapter courseAdapter;
@@ -31,6 +33,22 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         listView = (ListView) findViewById(R.id.list);
         listView.setAdapter(courseAdapter);
+
+        listView.setOnItemClickListener(this);
+
+    }
+
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        Intent intent = new Intent(MainActivity.this, UpdateActivity.class);
+
+        Course course = GradeCalcManager.getInstance().getCourses().get(position);
+        intent.putExtra("position", position);
+
+        this.startActivityForResult(intent, 1);
+
+
     }
 
 
@@ -50,7 +68,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onActivityResult(int requestCode, int resultCode, Intent data ) {
         super.onActivityResult(requestCode,resultCode,data);
 
-        if (requestCode == 1) {
+        if ((requestCode == 1)) {
             courseAdapter.notifyDataSetChanged();
         }
     }

@@ -1,6 +1,8 @@
 package com.example.noahfinkiel.gradetracker;
 
 import java.util.HashSet;
+import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Observable;
 import java.util.Observer;
 import java.util.Set;
@@ -17,7 +19,7 @@ public class Course implements Observer {
 
     // Effects: Constructs a Course with given name and empty categories
     public Course(String name) {
-        this.name = name.toLowerCase();
+        this.name = name;
         this.categories = new HashSet<>();
         totalPercentGrade = 100;
 
@@ -59,7 +61,8 @@ public class Course implements Observer {
 
     }
 
-    // Effects: returns total course grade
+    // getters and setters
+
     public double getTotalPercentGrade() {
 
         return totalPercentGrade;
@@ -69,6 +72,24 @@ public class Course implements Observer {
         return name;
     }
 
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public Set<GradingCategory> getCategories() {
+        return categories;
+    }
+
+    // Requires: categories contains category with given name
+    public GradingCategory getCategory(String s) {
+        for (GradingCategory g: categories) {
+            if (s.equals(g.getName())) {
+                return  g;
+            }
+        }
+
+        throw new NoSuchElementException();
+    }
 
     // Courses are equal if their names are equal
     @Override

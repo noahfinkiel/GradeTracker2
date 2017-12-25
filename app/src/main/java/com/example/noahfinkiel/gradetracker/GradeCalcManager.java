@@ -30,6 +30,10 @@ public class GradeCalcManager {
         this.courses.add(course);
     }
 
+    public void removeCourseAtPosition(int position) {
+        courses.remove(position);
+    }
+
     public List<Course> getCourses() {
 
         return courses;
