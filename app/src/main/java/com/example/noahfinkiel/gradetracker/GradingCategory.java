@@ -19,7 +19,7 @@ public class GradingCategory extends Observable {
 
     //Effects: constructs a new GradingCategory with given course and percent weight
     public GradingCategory(String name, Course course, int weight) {
-       this.name = name;
+        this.name = name;
         addObserver(course);
         this.weight = weight;
         grades = new LinkedList<>();
@@ -52,7 +52,6 @@ public class GradingCategory extends Observable {
     }
 
     public List<Grade> getGrades() {
-
         return grades;
     }
 
