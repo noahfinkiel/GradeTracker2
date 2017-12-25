@@ -10,6 +10,9 @@ import android.widget.EditText;
 import com.example.noahfinkiel.mygradetracker.R;
 
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.LinkedHashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -96,7 +99,6 @@ public class UpdateActivity extends Activity implements View.OnClickListener {
                         double grade = category.getCurrentPercentGrade();
 
 
-
                         // gets the EditText corresponding to the GradingCategory from resources and assigns it the current percent grade and weight
                         EditText editText = (EditText) findViewById(resources.get(category.getName()));
                         EditText editTextWeight = (EditText) findViewById(resources.get(category.getName() + "Weight"));
@@ -130,6 +132,7 @@ public class UpdateActivity extends Activity implements View.OnClickListener {
             setResult(1, new Intent());
             finish();
         }
+
         else {
             courseName = (EditText) findViewById(R.id.courseNameUpdate);
             homework = (EditText) findViewById(R.id.assignmentUpdate);
@@ -154,481 +157,92 @@ public class UpdateActivity extends Activity implements View.OnClickListener {
 
             Set<GradingCategory> categories = course.getCategories();
 
-            if (!(courseName == null)) {
-
-                course.setName(courseName.getText().toString());
-
-                // Checks to see if homework is null or empty, if not then proceeds to use homework data
-               if (!((homework == null) || (homework.getText().toString().isEmpty()))) {
-
-                   GradingCategory homeworkCat = new GradingCategory("Assignments", course, 0);
-
-                   // checks to see if homeworkWeight is null, if not proceeds to use homework weight for course
-                   if (!((homeworkWeight == null) || (homeworkWeight.getText().toString().isEmpty()))) {
-
-                       // checks to see if this grading category already exists, if so, sets the grade and weight to given ones, if not
-                       // adds this new grading category to course with given grade and weight
-                       if ((categories.contains(homeworkCat))) {
-                           GradingCategory category = course.getCategory("Assignments");
-                           category.setWeight(Integer.parseInt(homeworkWeight.getText().toString()));
-
-                           category.setCurrentPercentGrade(new Grade(Double.parseDouble(homework.getText().toString())));
-                       }
-
-                       // adds new grading category with given grade and weight
-                       else {
-                           homeworkCat.setWeight(Integer.parseInt(homeworkWeight.getText().toString()));
-                           homeworkCat.setCurrentPercentGrade(new Grade(Double.parseDouble(homework.getText().toString())));
-                           course.addCategory(homeworkCat);
-                       }
-
-                   }
-
-                   // if the course contains the given category, then sets the current percent grade, if not then does not add grade
-                   // because weight is null
-                   else {
-
-                       if ((categories.contains(homeworkCat))) {
-                           GradingCategory category = course.getCategory("Assignments");
-                           category.setCurrentPercentGrade(new Grade(Double.parseDouble(homework.getText().toString())));
-                       }
-                   }
-
-               }
-
-               else {
-                   // if the homework weight is not null, then checks to see if the category already exists
-                   if (!((homeworkWeight == null) || (homeworkWeight.getText().toString().isEmpty()))) {
-                       GradingCategory homeworkCat = new GradingCategory("Assignments", course, 0);
-
-                       // If the category already exists then sets weight to given weight, if it doesn't then does nothing
-                       if (categories.contains(homeworkCat)) {
-                           GradingCategory category = course.getCategory("Assignments");
-                           category.setWeight(Integer.parseInt(homeworkWeight.getText().toString()));
-                       }
-                   }
-               }
+            Map<EditText, String> editCategories = new LinkedHashMap<>();
+            List<EditText> editCategoriesWeight = new LinkedList<>();
 
 
+            // puts and category editText values into a map with corresponding category names, also puts the
+            // corresponding categories Weights at the same index in editCategoriesWeight list
 
-                // Checks to see if midterm1 is null or empty, if not then proceeds to use data
-                if (!((midterm1 == null) || (midterm1.getText().toString().isEmpty()))) {
+            editCategories.put(homework, "Assignments");
+            editCategoriesWeight.add(homeworkWeight);
+            editCategories.put(midterm1, "Midterm 1");
+            editCategoriesWeight.add(midterm1Weight);
+            editCategories.put(midterm2, "Midterm 2");
+            editCategoriesWeight.add(midterm2Weight);
+            editCategories.put(quizzes, "Quizzes");
+            editCategoriesWeight.add(quizzesWeight);
+            editCategories.put(clickers, "Clickers");
+            editCategoriesWeight.add(clickersWeight);
+            editCategories.put(labs, "Labs");
+            editCategoriesWeight.add(labsWeight);
+            editCategories.put(tutorials, "Tutorials");
+            editCategoriesWeight.add(tutorialsWeight);
+            editCategories.put(finals, "Final");
+            editCategoriesWeight.add(finalWeight);
+            editCategories.put(other, "Other");
+            editCategoriesWeight.add(otherWeight);
 
-                    GradingCategory midterm1Cat = new GradingCategory("Midterm 1", course, 0);
+            Iterator weightIterator = editCategoriesWeight.iterator();
 
-                    // checks to see if mideterm1Weight is null, if not proceeds to use midterm1weight for course
-                    if (!((midterm1Weight == null) || (midterm1Weight.getText().toString().isEmpty()))) {
+            // iterates through keys of editCategories and uses values to find courses that already exist, then updates all editText info
+            for (EditText category : editCategories.keySet()) {
+
+                EditText weight = (EditText) weightIterator.next();
+
+                // Checks to see if category is null or empty, if not then proceeds to use category data
+                if (!((category == null) || (category.getText().toString().isEmpty()))) {
+                    GradingCategory cat = new GradingCategory(editCategories.get(category), course, 0);
+
+                    // checks to see if categoryWeight is null, if not proceeds to use category weight for course
+                    if (!((weight == null) || weight.getText().toString().isEmpty())) {
 
                         // checks to see if this grading category already exists, if so, sets the grade and weight to given ones, if not
                         // adds this new grading category to course with given grade and weight
-                        if ((categories.contains(midterm1Cat))) {
-                            GradingCategory category = course.getCategory("Midterm 1");
-                            category.setWeight(Integer.parseInt(midterm1Weight.getText().toString()));
+                        if (categories.contains(cat)) {
+                            GradingCategory thisCategory = course.getCategory(editCategories.get(category));
+                            thisCategory.setWeight(Integer.parseInt(weight.getText().toString()));
+                            thisCategory.setCurrentPercentGrade(new Grade(Double.parseDouble(category.getText().toString())));
 
-                            category.setCurrentPercentGrade(new Grade(Double.parseDouble(midterm1.getText().toString())));
                         }
 
                         // adds new grading category with given grade and weight
                         else {
-                            course.addCategory(midterm1Cat);
-                            midterm1Cat.setWeight(Integer.parseInt(midterm1Weight.getText().toString()));
-                            midterm1Cat.setCurrentPercentGrade(new Grade(Double.parseDouble(midterm1.getText().toString())));
-
+                            course.addCategory(cat);
+                            cat.setWeight(Integer.parseInt(category.getText().toString()));
+                            cat.setCurrentPercentGrade(new Grade(Double.parseDouble(category.getText().toString())));
                         }
-
                     }
 
                     // if the course contains the given category, then sets the current percent grade, if not then does not add grade
                     // because weight is null
                     else {
 
-                        if ((categories.contains(midterm1Cat))) {
-                            GradingCategory category = course.getCategory("Midterm 1");
-                            category.setCurrentPercentGrade(new Grade(Double.parseDouble(midterm1.getText().toString())));
+                        if ((categories.contains(cat))) {
+                            GradingCategory thisCategory = course.getCategory(editCategories.get(category));
+                            thisCategory.setCurrentPercentGrade(new Grade(Double.parseDouble(category.getText().toString())));
                         }
                     }
-
                 }
 
                 else {
-                    // if the midterm1 weight is not null, then checks to see if the category already exists
-                    if (!((midterm1Weight == null) || (midterm1Weight.getText().toString().isEmpty()))) {
-                        GradingCategory midterm1Cat = new GradingCategory("Midterm 1", course, 0);
+                    // if the category weight is not null, then checks to see if the category already exists
+                    if (!((weight == null) || (weight.getText().toString().isEmpty()))) {
+                        GradingCategory cat = new GradingCategory(editCategories.get(category), course, 0);
 
                         // If the category already exists then sets weight to given weight, if it doesn't then does nothing
-                        if (categories.contains(midterm1Cat)) {
-                            GradingCategory category = course.getCategory("Midterm 1");
-                            category.setWeight(Integer.parseInt(midterm1Weight.getText().toString()));
-                        }
-                    }
-                }
-
-                // Checks to see if midterm2 is null or empty, if not then proceeds to use data
-                if (!((midterm2 == null) || (midterm2.getText().toString().isEmpty()))) {
-
-                    GradingCategory midterm2Cat = new GradingCategory("Midterm 2", course, 0);
-
-                    // checks to see if midterm2Weight is null, if not proceeds to use given weight
-                    if (!((midterm2Weight == null) || (midterm2Weight.getText().toString().isEmpty()))) {
-
-                        // checks to see if this grading category already exists, if so, sets the grade and weight to given ones, if not
-                        // adds this new grading category to course with given grade and weight
-                        if ((categories.contains(midterm2Cat))) {
-                            GradingCategory category = course.getCategory("Midterm 2");
-                            category.setWeight(Integer.parseInt(midterm2Weight.getText().toString()));
-
-                            category.setCurrentPercentGrade(new Grade(Double.parseDouble(midterm2.getText().toString())));
-                        }
-
-                        // adds new grading category with given grade and weight
-                        else {
-                            course.addCategory(midterm2Cat);
-                            midterm2Cat.setWeight(Integer.parseInt(midterm2Weight.getText().toString()));
-                            midterm2Cat.setCurrentPercentGrade(new Grade(Double.parseDouble(midterm2.getText().toString())));
-
-                        }
-
-                    }
-
-                    // if the course contains the given category, then sets the current percent grade, if not then does not add grade
-                    // because weight is null
-                    else {
-
-                        if ((categories.contains(midterm2Cat))) {
-                            GradingCategory category = course.getCategory("Midterm 2");
-                            category.setCurrentPercentGrade(new Grade(Double.parseDouble(midterm2.getText().toString())));
-                        }
-                    }
-
-                }
-
-                else {
-                    // if the midterm2weight is not null, then checks to see if the category already exists
-                    if (!((midterm2Weight == null) || (midterm2Weight.getText().toString().isEmpty()))) {
-                        GradingCategory homeworkCat = new GradingCategory("Midterm 2", course, 0);
-
-                        // If the category already exists then sets weight to given weight, if it doesn't then does nothing
-                        if (categories.contains(homeworkCat)) {
-                            GradingCategory category = course.getCategory("Midterm 2");
-                            category.setWeight(Integer.parseInt(midterm2Weight.getText().toString()));
-                        }
-                    }
-                }
-
-                // Checks to see if quizzes is null or empty, if not then proceeds to use quizzes data
-                if (!((quizzes == null) || (quizzes.getText().toString().isEmpty()))) {
-
-                    GradingCategory quizzesCat = new GradingCategory("Quizzes", course, 0);
-
-                    // checks to see if quizzesWeight is null, if not proceeds to use given weight
-                    if (!((quizzes == null) || (quizzes.getText().toString().isEmpty()))) {
-
-                        // checks to see if this grading category already exists, if so, sets the grade and weight to given ones, if not
-                        // adds this new grading category to course with given grade and weight
-                        if ((categories.contains(quizzesCat))) {
-                            GradingCategory category = course.getCategory("Quizzes");
-                            category.setWeight(Integer.parseInt(quizzesWeight.getText().toString()));
-
-                            category.setCurrentPercentGrade(new Grade(Double.parseDouble(quizzes.getText().toString())));
-                        }
-
-                        // adds new grading category with given grade and weight
-                        else {
-                            course.addCategory(quizzesCat);
-                            quizzesCat.setWeight(Integer.parseInt(homeworkWeight.getText().toString()));
-                            quizzesCat.setCurrentPercentGrade(new Grade(Double.parseDouble(homework.getText().toString())));
-
-                        }
-
-                    }
-
-                    // if the course contains the given category, then sets the current percent grade, if not then does not add grade
-                    // because weight is null
-                    else {
-
-                        if ((categories.contains(quizzesCat))) {
-                            GradingCategory category = course.getCategory("Quizzes");
-                            category.setCurrentPercentGrade(new Grade(Double.parseDouble(quizzes.getText().toString())));
-                        }
-                    }
-
-                }
-
-                else {
-                    // if the quizzweight is not null, then checks to see if the category already exists
-                    if (!((quizzesWeight == null) || (quizzesWeight.getText().toString().isEmpty()))) {
-                        GradingCategory quizzesCat = new GradingCategory("Quizzes", course, 0);
-
-                        // If the category already exists then sets weight to given weight, if it doesn't then does nothing
-                        if (categories.contains(quizzesCat)) {
-                            GradingCategory category = course.getCategory("Quizzes");
-                            category.setWeight(Integer.parseInt(quizzesWeight.getText().toString()));
-                        }
-                    }
-                }
-
-                // Checks to see if clickers is null or empty, if not then proceeds to use data
-                if (!((clickers == null) || (clickers.getText().toString().isEmpty()))) {
-
-                    GradingCategory clickersCat = new GradingCategory("Clickers", course, 0);
-
-                    // checks to see if clickersWeight is null, if not proceeds to use given weight for course
-                    if (!((clickers == null) || (clickers.getText().toString().isEmpty()))) {
-
-                        // checks to see if this grading category already exists, if so, sets the grade and weight to given ones, if not
-                        // adds this new grading category to course with given grade and weight
-                        if ((categories.contains(clickersCat))) {
-                            GradingCategory category = course.getCategory("Clickers");
-                            category.setWeight(Integer.parseInt(clickersWeight.getText().toString()));
-
-                            category.setCurrentPercentGrade(new Grade(Double.parseDouble(clickers.getText().toString())));
-                        }
-
-                        // adds new grading category with given grade and weight
-                        else {
-                            course.addCategory(clickersCat);
-                            clickersCat.setWeight(Integer.parseInt(clickersWeight.getText().toString()));
-                            clickersCat.setCurrentPercentGrade(new Grade(Double.parseDouble(clickers.getText().toString())));
-
-                        }
-
-                    }
-
-                    // if the course contains the given category, then sets the current percent grade, if not then does not add grade
-                    // because weight is null
-                    else {
-
-                        if ((categories.contains(clickersCat))) {
-                            GradingCategory category = course.getCategory("Clickers");
-                            category.setCurrentPercentGrade(new Grade(Double.parseDouble(homework.getText().toString())));
-                        }
-                    }
-
-                }
-
-                else {
-                    // if the clickers weight is not null, then checks to see if the category already exists
-                    if (!((clickersWeight == null) || (clickersWeight.getText().toString().isEmpty()))) {
-                        GradingCategory clickerskCat = new GradingCategory("Clickers", course, 0);
-
-                        // If the category already exists then sets weight to given weight, if it doesn't then does nothing
-                        if (categories.contains(clickerskCat)) {
-                            GradingCategory category = course.getCategory("Clickers");
-                            category.setWeight(Integer.parseInt(clickersWeight.getText().toString()));
-                        }
-                    }
-                }
-
-                // Checks to see if labs is null or empty, if not then proceeds to use labs data
-                if (!((labs == null) || (labs.getText().toString().isEmpty()))) {
-
-                    GradingCategory labsCat = new GradingCategory("Labs", course, 0);
-
-                    // checks to see if labsWeight is null, if not proceeds to use labs data
-                    if (!((labsWeight == null) || (labsWeight.getText().toString().isEmpty()))) {
-
-                        // checks to see if this grading category already exists, if so, sets the grade and weight to given ones, if not
-                        // adds this new grading category to course with given grade and weight
-                        if ((categories.contains(labsCat))) {
-                            GradingCategory category = course.getCategory("Labs");
-                            category.setWeight(Integer.parseInt(labsWeight.getText().toString()));
-
-                            category.setCurrentPercentGrade(new Grade(Double.parseDouble(labs.getText().toString())));
-                        }
-
-                        // adds new grading category with given grade and weight
-                        else {
-                            course.addCategory(labsCat);
-                            labsCat.setWeight(Integer.parseInt(labsWeight.getText().toString()));
-                            labsCat.setCurrentPercentGrade(new Grade(Double.parseDouble(labsWeight.getText().toString())));
-
-                        }
-
-                    }
-
-                    // if the course contains the given category, then sets the current percent grade, if not then does not add grade
-                    // because weight is null
-                    else {
-
-                        if ((categories.contains(labsCat))) {
-                            GradingCategory category = course.getCategory("Labs");
-                            category.setCurrentPercentGrade(new Grade(Double.parseDouble(labs.getText().toString())));
-                        }
-                    }
-
-                }
-
-                else {
-                    // if the labs weight is not null, then checks to see if the category already exists
-                    if (!((labsWeight == null) || (labsWeight.getText().toString().isEmpty()))) {
-                        GradingCategory labsCat = new GradingCategory("Labs", course, 0);
-
-                        // If the category already exists then sets weight to given weight, if it doesn't then does nothing
-                        if (categories.contains(labsCat)) {
-                            GradingCategory category = course.getCategory("Labs");
-                            category.setWeight(Integer.parseInt(labsWeight.getText().toString()));
-                        }
-                    }
-                }
-
-                // Checks to see if tutorials is null or empty, if not then proceeds to use tutorials data
-                if (!((tutorials == null) || (tutorials.getText().toString().isEmpty()))) {
-
-                    GradingCategory tutorialsCat = new GradingCategory("Tutorials", course, 0);
-
-                    // checks to see if homeworkWeight is null, if not proceeds to use homework weight for course
-                    if (!((tutorialsWeight == null) || (tutorialsWeight.getText().toString().isEmpty()))) {
-
-                        // checks to see if this grading category already exists, if so, sets the grade and weight to given ones, if not
-                        // adds this new grading category to course with given grade and weight
-                        if ((categories.contains(tutorialsCat))) {
-                            GradingCategory category = course.getCategory("Tutorials");
-                            category.setWeight(Integer.parseInt(tutorialsWeight.getText().toString()));
-
-                            category.setCurrentPercentGrade(new Grade(Double.parseDouble(tutorials.getText().toString())));
-                        }
-
-                        // adds new grading category with given grade and weight
-                        else {
-                            course.addCategory(tutorialsCat);
-                            tutorialsCat.setWeight(Integer.parseInt(tutorialsWeight.getText().toString()));
-                            tutorialsCat.setCurrentPercentGrade(new Grade(Double.parseDouble(tutorials.getText().toString())));
-
-                        }
-
-                    }
-
-                    // if the course contains the given category, then sets the current percent grade, if not then does not add grade
-                    // because weight is null
-                    else {
-
-                        if ((categories.contains(tutorialsCat))) {
-                            GradingCategory category = course.getCategory("Tutorials");
-                            category.setCurrentPercentGrade(new Grade(Double.parseDouble(tutorials.getText().toString())));
-                        }
-                    }
-
-                }
-
-                else {
-                    // if the tutorials weight is not null, then checks to see if the category already exists
-                    if (!((tutorialsWeight == null) || (tutorialsWeight.getText().toString().isEmpty()))) {
-                        GradingCategory tutorialsCat = new GradingCategory("Tutorials", course, 0);
-
-                        // If the category already exists then sets weight to given weight, if it doesn't then does nothing
-                        if (categories.contains(tutorialsCat)) {
-                            GradingCategory category = course.getCategory("Tutorials");
-                            category.setWeight(Integer.parseInt(tutorialsWeight.getText().toString()));
-                        }
-                    }
-                }
-
-                // Checks to see if finals is null or empty, if not then proceeds to use finals data
-                if (!((finals == null) || (finals.getText().toString().isEmpty()))) {
-
-                    GradingCategory finalCat = new GradingCategory("Final", course, 0);
-
-                    // checks to see if finalWeight is null, if not proceeds to use final weight for course
-                    if (!((finalWeight == null) || (finalWeight.getText().toString().isEmpty()))) {
-
-                        // checks to see if this grading category already exists, if so, sets the grade and weight to given ones, if not
-                        // adds this new grading category to course with given grade and weight
-                        if ((categories.contains(finalCat))) {
-                            GradingCategory category = course.getCategory("Final");
-                            category.setWeight(Integer.parseInt(finalWeight.getText().toString()));
-
-                            category.setCurrentPercentGrade(new Grade(Double.parseDouble(finals.getText().toString())));
-                        }
-
-                        // adds new grading category with given grade and weight
-                        else {
-                            course.addCategory(finalCat);
-                            finalCat.setWeight(Integer.parseInt(finalWeight.getText().toString()));
-                            finalCat.setCurrentPercentGrade(new Grade(Double.parseDouble(finals.getText().toString())));
-
-                        }
-
-                    }
-
-                    // if the course contains the given category, then sets the current percent grade, if not then does not add grade
-                    // because weight is null
-                    else {
-
-                        if ((categories.contains(finalCat))) {
-                            GradingCategory category = course.getCategory("Final");
-                            category.setCurrentPercentGrade(new Grade(Double.parseDouble(finals.getText().toString())));
-                        }
-                    }
-
-                }
-
-                else {
-                    // if the final weight is not null, then checks to see if the category already exists
-                    if (!((finalWeight == null) || (finalWeight.getText().toString().isEmpty()))) {
-                        GradingCategory finalCat = new GradingCategory("Final", course, 0);
-
-                        // If the category already exists then sets weight to given weight, if it doesn't then does nothing
-                        if (categories.contains(finalCat)) {
-                            GradingCategory category = course.getCategory("Final");
-                            category.setWeight(Integer.parseInt(finalWeight.getText().toString()));
-                        }
-                    }
-                }
-
-                // Checks to see if other is null or empty, if not then proceeds to use data
-                if (!((other == null) || (otherWeight.getText().toString().isEmpty()))) {
-
-                    GradingCategory otherCat = new GradingCategory("Other", course, 0);
-
-                    // checks to see if otherWeight is null, if not proceeds to use tutorials weight
-                    if (!((otherWeight == null) || (otherWeight.getText().toString().isEmpty()))) {
-
-                        // checks to see if this grading category already exists, if so, sets the grade and weight to given ones, if not
-                        // adds this new grading category to course with given grade and weight
-                        if ((categories.contains(otherCat))) {
-                            GradingCategory category = course.getCategory("Other");
-                            category.setWeight(Integer.parseInt(otherWeight.getText().toString()));
-
-                            category.setCurrentPercentGrade(new Grade(Double.parseDouble(other.getText().toString())));
-                        }
-
-                        // adds new grading category with given grade and weight
-                        else {
-                            course.addCategory(otherCat);
-                            otherCat.setWeight(Integer.parseInt(otherWeight.getText().toString()));
-                            otherCat.setCurrentPercentGrade(new Grade(Double.parseDouble(other.getText().toString())));
-                        }
-
-                    }
-
-                    // if the course contains the given category, then sets the current percent grade, if not then does not add grade
-                    // because weight is null
-                    else {
-
-                        if ((categories.contains(otherCat))) {
-                            GradingCategory category = course.getCategory("Other");
-                            category.setCurrentPercentGrade(new Grade(Double.parseDouble(other.getText().toString())));
-                        }
-                    }
-
-                }
-
-                else {
-                    // if the other weight is not null, then checks to see if the category already exists
-                    if (!((otherWeight == null) || (otherWeight.getText().toString().isEmpty()))) {
-                        GradingCategory otherCat = new GradingCategory("Other", course, 0);
-
-                        // If the category already exists then sets weight to given weight, if it doesn't then does nothing
-                        if (categories.contains(otherCat)) {
-                            GradingCategory category = course.getCategory("Other");
-                            category.setWeight(Integer.parseInt(otherWeight.getText().toString()));
+                        if (categories.contains(cat)) {
+                            GradingCategory thisCat = course.getCategory(editCategories.get(category));
+                            thisCat.setWeight(Integer.parseInt(weight.getText().toString()));
                         }
                     }
                 }
             }
 
+            // sets result code to one so course adapter updates
             setResult(1, new Intent());
             finish();
+
 
         }
 

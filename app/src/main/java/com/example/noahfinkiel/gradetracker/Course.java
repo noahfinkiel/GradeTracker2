@@ -17,7 +17,7 @@ public class Course implements Observer {
     private double totalPercentGrade;
 
 
-    // Effects: Constructs a Course with given name and empty categories
+    // Effects: Constructs a Course with given name and empty categories and a percent grade of 100
     public Course(String name) {
         this.name = name;
         this.categories = new HashSet<>();
@@ -26,7 +26,7 @@ public class Course implements Observer {
     }
 
     // Modifies: this
-    //Effects: adds the given grading category
+    //Effects: adds the given grading category to categories
     public void addCategory(GradingCategory category) {
         categories.add(category);
         calculatePercentGrade();
@@ -34,7 +34,6 @@ public class Course implements Observer {
 
     // Effects: updates the course grade
     public void update(Observable observable, Object o) {
-
         calculatePercentGrade();
     }
 
@@ -52,9 +51,11 @@ public class Course implements Observer {
             }
         }
 
+        // check to see that total weight is not 0
         if (!(marksOutOf==0)) {
             this.totalPercentGrade = (100 * (totalMarks/marksOutOf));
         }
+
         else {
             totalPercentGrade = 100;
         }
@@ -80,10 +81,12 @@ public class Course implements Observer {
         return categories;
     }
 
-    // Requires: categories contains category with given name
-    public GradingCategory getCategory(String s) {
+
+    //Effects: if categories contains a category with the given name, returns that category, if not then throws an
+    // unchecked exception (this should never happen)
+    public GradingCategory getCategory(String name) {
         for (GradingCategory g: categories) {
-            if (s.equals(g.getName())) {
+            if (name.equals(g.getName())) {
                 return  g;
             }
         }
