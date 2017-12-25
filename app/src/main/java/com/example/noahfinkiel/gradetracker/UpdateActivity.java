@@ -211,12 +211,12 @@ public class UpdateActivity extends Activity implements View.OnClickListener {
 
 
 
-                // Checks to see if homework is null or empty, if not then proceeds to use homework data
+                // Checks to see if midterm1 is null or empty, if not then proceeds to use data
                 if (!((midterm1 == null) || (midterm1.getText().toString().isEmpty()))) {
 
                     GradingCategory midterm1Cat = new GradingCategory("Midterm 1", course, 0);
 
-                    // checks to see if homeworkWeight is null, if not proceeds to use homework weight for course
+                    // checks to see if mideterm1Weight is null, if not proceeds to use midterm1weight for course
                     if (!((midterm1Weight == null) || (midterm1Weight.getText().toString().isEmpty()))) {
 
                         // checks to see if this grading category already exists, if so, sets the grade and weight to given ones, if not
@@ -251,7 +251,7 @@ public class UpdateActivity extends Activity implements View.OnClickListener {
                 }
 
                 else {
-                    // if the homework weight is not null, then checks to see if the category already exists
+                    // if the midterm1 weight is not null, then checks to see if the category already exists
                     if (!((midterm1Weight == null) || (midterm1Weight.getText().toString().isEmpty()))) {
                         GradingCategory midterm1Cat = new GradingCategory("Midterm 1", course, 0);
 
@@ -263,12 +263,12 @@ public class UpdateActivity extends Activity implements View.OnClickListener {
                     }
                 }
 
-                // Checks to see if homework is null or empty, if not then proceeds to use homework data
+                // Checks to see if midterm2 is null or empty, if not then proceeds to use data
                 if (!((midterm2 == null) || (midterm2.getText().toString().isEmpty()))) {
 
                     GradingCategory midterm2Cat = new GradingCategory("Midterm 2", course, 0);
 
-                    // checks to see if homeworkWeight is null, if not proceeds to use homework weight for course
+                    // checks to see if midterm2Weight is null, if not proceeds to use given weight
                     if (!((midterm2Weight == null) || (midterm2Weight.getText().toString().isEmpty()))) {
 
                         // checks to see if this grading category already exists, if so, sets the grade and weight to given ones, if not
@@ -303,7 +303,7 @@ public class UpdateActivity extends Activity implements View.OnClickListener {
                 }
 
                 else {
-                    // if the homework weight is not null, then checks to see if the category already exists
+                    // if the midterm2weight is not null, then checks to see if the category already exists
                     if (!((midterm2Weight == null) || (midterm2Weight.getText().toString().isEmpty()))) {
                         GradingCategory homeworkCat = new GradingCategory("Midterm 2", course, 0);
 
@@ -315,12 +315,12 @@ public class UpdateActivity extends Activity implements View.OnClickListener {
                     }
                 }
 
-                // Checks to see if homework is null or empty, if not then proceeds to use homework data
+                // Checks to see if quizzes is null or empty, if not then proceeds to use quizzes data
                 if (!((quizzes == null) || (quizzes.getText().toString().isEmpty()))) {
 
                     GradingCategory quizzesCat = new GradingCategory("Quizzes", course, 0);
 
-                    // checks to see if homeworkWeight is null, if not proceeds to use homework weight for course
+                    // checks to see if quizzesWeight is null, if not proceeds to use given weight
                     if (!((quizzes == null) || (quizzes.getText().toString().isEmpty()))) {
 
                         // checks to see if this grading category already exists, if so, sets the grade and weight to given ones, if not
@@ -355,7 +355,7 @@ public class UpdateActivity extends Activity implements View.OnClickListener {
                 }
 
                 else {
-                    // if the homework weight is not null, then checks to see if the category already exists
+                    // if the quizzweight is not null, then checks to see if the category already exists
                     if (!((quizzesWeight == null) || (quizzesWeight.getText().toString().isEmpty()))) {
                         GradingCategory quizzesCat = new GradingCategory("Quizzes", course, 0);
 
@@ -367,12 +367,12 @@ public class UpdateActivity extends Activity implements View.OnClickListener {
                     }
                 }
 
-                // Checks to see if homework is null or empty, if not then proceeds to use homework data
+                // Checks to see if clickers is null or empty, if not then proceeds to use data
                 if (!((clickers == null) || (clickers.getText().toString().isEmpty()))) {
 
                     GradingCategory clickersCat = new GradingCategory("Clickers", course, 0);
 
-                    // checks to see if homeworkWeight is null, if not proceeds to use homework weight for course
+                    // checks to see if clickersWeight is null, if not proceeds to use given weight for course
                     if (!((clickers == null) || (clickers.getText().toString().isEmpty()))) {
 
                         // checks to see if this grading category already exists, if so, sets the grade and weight to given ones, if not
@@ -407,7 +407,7 @@ public class UpdateActivity extends Activity implements View.OnClickListener {
                 }
 
                 else {
-                    // if the homework weight is not null, then checks to see if the category already exists
+                    // if the clickers weight is not null, then checks to see if the category already exists
                     if (!((clickersWeight == null) || (clickersWeight.getText().toString().isEmpty()))) {
                         GradingCategory clickerskCat = new GradingCategory("Clickers", course, 0);
 
@@ -419,12 +419,12 @@ public class UpdateActivity extends Activity implements View.OnClickListener {
                     }
                 }
 
-                // Checks to see if homework is null or empty, if not then proceeds to use homework data
+                // Checks to see if labs is null or empty, if not then proceeds to use labs data
                 if (!((labs == null) || (labs.getText().toString().isEmpty()))) {
 
                     GradingCategory labsCat = new GradingCategory("Labs", course, 0);
 
-                    // checks to see if homeworkWeight is null, if not proceeds to use homework weight for course
+                    // checks to see if labsWeight is null, if not proceeds to use labs data
                     if (!((labsWeight == null) || (labsWeight.getText().toString().isEmpty()))) {
 
                         // checks to see if this grading category already exists, if so, sets the grade and weight to given ones, if not
@@ -459,7 +459,7 @@ public class UpdateActivity extends Activity implements View.OnClickListener {
                 }
 
                 else {
-                    // if the homework weight is not null, then checks to see if the category already exists
+                    // if the labs weight is not null, then checks to see if the category already exists
                     if (!((labsWeight == null) || (labsWeight.getText().toString().isEmpty()))) {
                         GradingCategory labsCat = new GradingCategory("Labs", course, 0);
 
@@ -471,7 +471,7 @@ public class UpdateActivity extends Activity implements View.OnClickListener {
                     }
                 }
 
-                // Checks to see if homework is null or empty, if not then proceeds to use homework data
+                // Checks to see if tutorials is null or empty, if not then proceeds to use tutorials data
                 if (!((tutorials == null) || (tutorials.getText().toString().isEmpty()))) {
 
                     GradingCategory tutorialsCat = new GradingCategory("Tutorials", course, 0);
@@ -511,7 +511,7 @@ public class UpdateActivity extends Activity implements View.OnClickListener {
                 }
 
                 else {
-                    // if the homework weight is not null, then checks to see if the category already exists
+                    // if the tutorials weight is not null, then checks to see if the category already exists
                     if (!((tutorialsWeight == null) || (tutorialsWeight.getText().toString().isEmpty()))) {
                         GradingCategory tutorialsCat = new GradingCategory("Tutorials", course, 0);
 
@@ -523,12 +523,12 @@ public class UpdateActivity extends Activity implements View.OnClickListener {
                     }
                 }
 
-                // Checks to see if homework is null or empty, if not then proceeds to use homework data
+                // Checks to see if finals is null or empty, if not then proceeds to use finals data
                 if (!((finals == null) || (finals.getText().toString().isEmpty()))) {
 
                     GradingCategory finalCat = new GradingCategory("Final", course, 0);
 
-                    // checks to see if homeworkWeight is null, if not proceeds to use homework weight for course
+                    // checks to see if finalWeight is null, if not proceeds to use final weight for course
                     if (!((finalWeight == null) || (finalWeight.getText().toString().isEmpty()))) {
 
                         // checks to see if this grading category already exists, if so, sets the grade and weight to given ones, if not
@@ -563,7 +563,7 @@ public class UpdateActivity extends Activity implements View.OnClickListener {
                 }
 
                 else {
-                    // if the homework weight is not null, then checks to see if the category already exists
+                    // if the final weight is not null, then checks to see if the category already exists
                     if (!((finalWeight == null) || (finalWeight.getText().toString().isEmpty()))) {
                         GradingCategory finalCat = new GradingCategory("Final", course, 0);
 
@@ -575,12 +575,12 @@ public class UpdateActivity extends Activity implements View.OnClickListener {
                     }
                 }
 
-                // Checks to see if homework is null or empty, if not then proceeds to use homework data
+                // Checks to see if other is null or empty, if not then proceeds to use data
                 if (!((other == null) || (otherWeight.getText().toString().isEmpty()))) {
 
                     GradingCategory otherCat = new GradingCategory("Other", course, 0);
 
-                    // checks to see if homeworkWeight is null, if not proceeds to use homework weight for course
+                    // checks to see if otherWeight is null, if not proceeds to use tutorials weight
                     if (!((otherWeight == null) || (otherWeight.getText().toString().isEmpty()))) {
 
                         // checks to see if this grading category already exists, if so, sets the grade and weight to given ones, if not
@@ -614,7 +614,7 @@ public class UpdateActivity extends Activity implements View.OnClickListener {
                 }
 
                 else {
-                    // if the homework weight is not null, then checks to see if the category already exists
+                    // if the other weight is not null, then checks to see if the category already exists
                     if (!((otherWeight == null) || (otherWeight.getText().toString().isEmpty()))) {
                         GradingCategory otherCat = new GradingCategory("Other", course, 0);
 
