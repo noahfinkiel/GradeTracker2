@@ -49,7 +49,6 @@ public class NewCourseActivity extends Activity implements View.OnClickListener 
 
         add.setOnClickListener(this);
 
-
     }
 
 

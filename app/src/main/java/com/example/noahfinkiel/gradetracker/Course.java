@@ -1,5 +1,6 @@
 package com.example.noahfinkiel.gradetracker;
 
+import java.text.DecimalFormat;
 import java.util.HashSet;
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -46,14 +47,17 @@ public class Course implements Observer {
 
         for (GradingCategory category: categories) {
             if (!(category.getGrades().isEmpty())) {
-                totalMarks += ((category.getCurrentPercentGrade()/(double)100) * (double)category.getWeight());
+                totalMarks += ((category.getCurrentPercentGrade()/(double)100.0) * (double)category.getWeight());
                 marksOutOf += (double)category.getWeight();
             }
         }
 
         // check to see that total weight is not 0
         if (!(marksOutOf==0)) {
-            this.totalPercentGrade = (100 * (totalMarks/marksOutOf));
+            double d =  ((100.0 * (totalMarks/marksOutOf)));
+            DecimalFormat f = new DecimalFormat("##.0");
+            this.totalPercentGrade = Double.parseDouble(f.format(d));
+
         }
 
         else {
