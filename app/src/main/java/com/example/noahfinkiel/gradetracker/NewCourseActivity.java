@@ -81,58 +81,115 @@ public class NewCourseActivity extends Activity implements View.OnClickListener 
             Course course = new Course(courseName.getText().toString());
 
 
-            if (!((homework == null) || (homeworkWeight==null) || (homework.getText().toString().isEmpty()) || (homeworkWeight.getText().toString().isEmpty()))) {
+            if (!((homeworkWeight==null) || (homeworkWeight.getText().toString().isEmpty()))) {
                 GradingCategory homeworkCat = new GradingCategory("Assignments", course, Integer.parseInt(homeworkWeight.getText().toString()));
-                homeworkCat.addGrade(new Grade(Double.parseDouble(homework.getText().toString())));
+                if (!((homework==null) || homework.getText().toString().isEmpty())) {
+                    homeworkCat.addGrade(new Grade(Double.parseDouble(homework.getText().toString())));
+                }
+
+                else {
+                    homeworkCat.addGrade(new Grade(100));
+                }
                 course.addCategory(homeworkCat);
             }
 
-            if (!((midterm1==null) || (midterm1Weight==null) || (midterm1.getText().toString().isEmpty()) || (midterm1Weight.getText().toString().isEmpty()))) {
+            if (!((midterm1Weight==null) || (midterm1Weight.getText().toString().isEmpty()))) {
                 GradingCategory midterm1Cat = new GradingCategory("Midterm 1", course, Integer.parseInt(midterm1Weight.getText().toString()));
-                midterm1Cat.addGrade(new Grade(Double.parseDouble(midterm1.getText().toString())));
+
+                if (!((midterm1 ==null) || (midterm1.getText().toString().isEmpty()))) {
+                    midterm1Cat.addGrade(new Grade(Double.parseDouble(midterm1.getText().toString())));
+                }
+
+                else {
+                    midterm1Cat.addGrade(new Grade(100));
+                }
                 course.addCategory(midterm1Cat);
             }
 
-            if (!((midterm2==null) || (midterm2Weight==null) || (midterm2.getText().toString().isEmpty()) || (midterm2Weight.getText().toString().isEmpty()))) {
+            if (!((midterm2Weight==null) || (midterm2Weight.getText().toString().isEmpty()))) {
                 GradingCategory midterm2Cat = new GradingCategory("Midterm 2", course, Integer.parseInt(midterm2Weight.getText().toString()));
-                midterm2Cat.addGrade(new Grade(Double.parseDouble(midterm2.getText().toString())));
+
+                if (!((midterm2==null)|| (midterm2.getText().toString().isEmpty()))){
+                    midterm2Cat.addGrade(new Grade(Double.parseDouble(midterm2.getText().toString())));
+                }
+
+                else {
+                    midterm2Cat.addGrade(new Grade(100));
+                }
                 course.addCategory(midterm2Cat);
 
             }
 
-            if (!((quizzes == null) || (quizzesWeight== null) || (quizzes.getText().toString().isEmpty()) || (quizzesWeight.getText().toString().isEmpty()))) {
+            if (!((quizzesWeight== null) || (quizzesWeight.getText().toString().isEmpty()))) {
                 GradingCategory quizzesCat = new GradingCategory("Quizzes", course, Integer.parseInt(quizzesWeight.getText().toString()));
-                quizzesCat.addGrade(new Grade(Double.parseDouble(quizzes.getText().toString())));
+
+                if (!((quizzes==null) || (quizzes.getText().toString().isEmpty()))) {
+                    quizzesCat.addGrade(new Grade(Double.parseDouble(quizzes.getText().toString())));
+                }
+                else {
+                    quizzesCat.addGrade(new Grade(100));
+                }
                 course.addCategory(quizzesCat);
             }
 
-            if (!((clickers==null) || (clickersWeight==null) || (clickers.getText().toString().isEmpty()) || (clickersWeight.getText().toString().isEmpty()))) {
+            if (!( (clickersWeight==null) || (clickersWeight.getText().toString().isEmpty()))) {
                 GradingCategory clickersCat = new GradingCategory("Clickers", course, Integer.parseInt(clickersWeight.getText().toString()));
-                clickersCat.addGrade(new Grade(Double.parseDouble(clickers.getText().toString())));
+                if (!((clickers==null) || (clickers.getText().toString().isEmpty()))) {
+                    clickersCat.addGrade(new Grade(Double.parseDouble(clickers.getText().toString())));
+                }
+
+                else {
+                    clickersCat.addGrade(new Grade(100));
+                }
+
                 course.addCategory(clickersCat);
             }
 
-            if (!((labs==null) || (labsWeight==null) || (labs.getText().toString().isEmpty()) || (labsWeight.getText().toString().isEmpty()))) {
+            if (!((labsWeight==null) || (labsWeight.getText().toString().isEmpty()))) {
                 GradingCategory labsCat = new GradingCategory("Labs", course, Integer.parseInt(labsWeight.getText().toString()));
-                labsCat.addGrade(new Grade(Double.parseDouble(labs.getText().toString())));
+                if (!((labs==null) || (labs.getText().toString().isEmpty()))) {
+                    labsCat.addGrade(new Grade(Double.parseDouble(labs.getText().toString())));
+                }
+
+                else {
+                    labsCat.addGrade(new Grade(100));
+                }
                 course.addCategory(labsCat);
             }
 
-            if (!((tutorials==null)|| (tutorialsWeight==null) || (tutorials.getText().toString().isEmpty()) ||(tutorialsWeight.getText().toString().isEmpty()))) {
+            if (!((tutorialsWeight==null) || (tutorialsWeight.getText().toString().isEmpty()))) {
                 GradingCategory tutorialsCat = new GradingCategory("Tutorials", course, Integer.parseInt(tutorialsWeight.getText().toString()));
-                tutorialsCat.addGrade(new Grade(Double.parseDouble(tutorials.getText().toString())));
+                if (!((tutorials==null) || (tutorials.getText().toString().isEmpty()))) {
+                    tutorialsCat.addGrade(new Grade(Double.parseDouble(tutorials.getText().toString())));
+                }
+
+                else {
+                    tutorialsCat.addGrade(new Grade(100));
+                }
                 course.addCategory(tutorialsCat);
             }
 
-            if (!((finals==null) || (finalWeight==null) || (finals.getText().toString().isEmpty()) || (finalWeight.getText().toString().isEmpty()))) {
+            if (!((finalWeight==null) || (finalWeight.getText().toString().isEmpty()))) {
                 GradingCategory finalsCat = new GradingCategory("Final", course, Integer.parseInt(finalWeight.getText().toString()));
-                finalsCat.addGrade(new Grade(Double.parseDouble(finals.getText().toString())));
+                if (!((finals==null) || (finals.getText().toString().isEmpty()))) {
+                    finalsCat.addGrade(new Grade(Double.parseDouble(finals.getText().toString())));
+                }
+
+                else {
+                    finalsCat.addGrade(new Grade(100));
+                }
                 course.addCategory(finalsCat);
             }
 
-            if (!((other==null)|| (otherWeight==null) || (other.getText().toString().isEmpty())|| (otherWeight.getText().toString().isEmpty()))) {
+            if (!((otherWeight==null) ||(otherWeight.getText().toString().isEmpty()))) {
                 GradingCategory otherCat = new GradingCategory("Other", course, Integer.parseInt(otherWeight.getText().toString()));
-                otherCat.addGrade(new Grade(Double.parseDouble(other.getText().toString())));
+                if (!((other==null) || (other.getText().toString().isEmpty()))) {
+                    otherCat.addGrade(new Grade(Double.parseDouble(other.getText().toString())));
+                }
+
+                else {
+                    otherCat.addGrade(new Grade(100));
+                }
                 course.addCategory(otherCat);
             }
 
